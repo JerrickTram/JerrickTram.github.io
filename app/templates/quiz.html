@@ -1,0 +1,26 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <h2>Vocabulary Quiz</h2>
+    <p>Translate the following word:</p>
+    <div class="card mt-4">
+        <div class="card-body">
+            <h5 class="card-title">{{ word.english_translation }}</h5>
+            {% if not feedback %}
+            <form method="POST" action="{{ url_for('main.quiz', word_id=word.id) }}">
+                {{ form.hidden_tag() }}
+                <div class="form-group">
+                    {{ form.answer.label }}
+                    {{ form.answer(class="form-control") }}
+                </div>
+                <button type="submit" class="btn btn-primary">{{ form.submit.label }}</button>
+            </form>
+            {% else %}
+                <div class="mt-3 alert alert-{{ 'success' if 'Correct' in feedback else 'danger' }}">
+                    {{ feedback }}
+                </div>
+                <a href="{{ url_for('main.quiz', next=True) }}" class="btn btn-primary mt-3">Next</a>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

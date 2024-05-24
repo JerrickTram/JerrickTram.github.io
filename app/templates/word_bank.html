@@ -1,0 +1,42 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <h2>Word Bank</h2>
+    <form method="GET" action="{{ url_for('main.word_bank') }}">
+        <div class="form-group">
+            <label for="tag">Search by Tag:</label>
+            <input type="text" id="tag" name="tag" class="form-control" placeholder="Enter tag" value="{{ tag }}">
+        </div>
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+
+    <h3>Tags</h3>
+    <div class="tag-cloud mt-4">
+        {% for tag, count in sorted_tags %}
+            <a href="{{ url_for('main.word_bank', tag=tag) }}" class="tag">{{ tag }} ({{ count }})</a>
+        {% endfor %}
+    </div>
+
+    {% if words %}
+    <h3>Words</h3>
+    <ul class="list-group mt-4">
+        {% for word in words %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div>
+                    <strong>{{ word.swedish_word }}</strong> - {{ word.english_translation }}
+                    <br>
+                    <small>Tags: {{ word.tags }}</small>
+                </div>
+                <div>
+                    <a href="{{ url_for('main.edit_word', word_id=word.id) }}" class="btn btn-sm btn-primary">Edit</a>
+                    <form action="{{ url_for('main.delete_word', word_id=word.id) }}" method="post" style="display:inline;">
+                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                    </form>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <h3 class="mt-4">Select a tag to view words</h3>
+    {% endif %}
+{% endblock %}

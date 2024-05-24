@@ -1,0 +1,21 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <h2>metrics</h2>
+    
+    <h3>Daily Metrics</h3>
+    <ul class="list-group mt-4">
+        {% for date, count in daily_metrics.items() %}
+            <li class="list-group-item">
+                <strong>{{ date }}:</strong> {{ count }} words quizzed
+            </li>
+        {% endfor %}
+    </ul>
+
+    <h3>Overall Statistics</h3>
+    <ul class="list-group mt-4">
+        <li class="list-group-item"><strong>Total Correct:</strong> {{ total_correct }}</li>
+        <li class="list-group-item"><strong>Total Incorrect:</strong> {{ total_incorrect }}</li>
+        <li class="list-group-item"><strong>Total Accuracy:</strong> {{ total_accuracy|round(2) }}%</li>
+    </ul>
+{% endblock %}
