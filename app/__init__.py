@@ -9,7 +9,7 @@ def create_app():
 
     db.init_app(app)
 
-    with app.app_context():a
+    with app.app_context():
         from .routes import bp as main_bp
         app.register_blueprint(main_bp)
         db.create_all()
