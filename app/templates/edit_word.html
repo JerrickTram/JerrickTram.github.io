@@ -1,6 +1,7 @@
 {% extends 'layout.html' %}
 
 {% block content %}
+<div class="jumbotron">
     <h2>Edit Word</h2>
     <form method="POST" action="">
         {{ form.hidden_tag() }}
@@ -18,4 +19,5 @@
         </div>
         <button type="submit" class="btn btn-primary">{{ form.submit.label }}</button>
     </form>
+</div>
 {% endblock %}
