@@ -16,17 +16,22 @@ def home():
 def add_word():
     form = AddWordForm()
     if form.validate_on_submit():
-        word = Word(
-            swedish_word=form.swedish_word.data,
-            english_translation=form.english_translation.data,
-            tags=form.tags.data
-        )
-        db.session.add(word)
-        db.session.commit()
-        flash('Word added successfully!')
-        return redirect(url_for('main.add_word'))
+        existing_word = Word.query.filter(db.func.lower(Word.swedish_word) == form.swedish_word.data.lower()).first()
+        if existing_word:
+            flash(f'The word "{form.swedish_word.data}" already exists in the word bank.', 'danger')
+        else:
+            word = Word(
+                swedish_word=form.swedish_word.data,
+                english_translation=form.english_translation.data,
+                tags=form.tags.data
+            )
+            db.session.add(word)
+            db.session.commit()
+            return redirect(url_for('main.add_word'))
     
     return render_template('add_word.html', form=form)
+
+
 
 @bp.route('/edit_word/<int:word_id>', methods=['GET', 'POST'])
 def edit_word(word_id):
