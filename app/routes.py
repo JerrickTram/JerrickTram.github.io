@@ -131,11 +131,20 @@ def track_word(word_id, action):
 
 @bp.route('/word_bank')
 def word_bank():
-    tag = request.args.get('tag')
-    if tag:
-        words = Word.query.filter(Word.tags.contains(tag)).order_by(Word.swedish_word).all()
-    else:
-        words = []
+    search = request.args.get('search')
+    query = Word.query
+
+    if search:
+        search_pattern = f"%{search}%"
+        query = query.filter(
+            db.or_(
+                Word.tags.ilike(search_pattern),
+                Word.swedish_word.ilike(search_pattern),
+                Word.english_translation.ilike(search_pattern)
+            )
+        )
+
+    words = query.order_by(Word.swedish_word).all() if search else []
         
     all_words = Word.query.all()
     # Count tags
@@ -149,4 +158,5 @@ def word_bank():
     # Sort tags by frequency
     sorted_tags = sorted(tag_counts.items(), key=lambda x: x[1], reverse=True)
 
-    return render_template('word_bank.html', words=words, tag=tag, sorted_tags=sorted_tags)
+    return render_template('word_bank.html', words=words, search=search, sorted_tags=sorted_tags)
+

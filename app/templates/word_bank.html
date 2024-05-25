@@ -4,8 +4,8 @@
     <h2>Word Bank</h2>
     <form method="GET" action="{{ url_for('main.word_bank') }}">
         <div class="form-group">
-            <label for="tag">Search by Tag:</label>
-            <input type="text" id="tag" name="tag" class="form-control" placeholder="Enter tag" value="{{ tag }}">
+            <label for="search">Search Words:</label>
+            <input type="text" id="search" name="search" class="form-control" placeholder="Enter tag or word" value="{{ search }}">
         </div>
         <button type="submit" class="btn btn-primary">Search</button>
     </form>
@@ -13,7 +13,7 @@
     <h3>Tags</h3>
     <div class="tag-cloud mt-4">
         {% for tag, count in sorted_tags %}
-            <a href="{{ url_for('main.word_bank', tag=tag) }}" class="tag">{{ tag }} ({{ count }})</a>
+            <a href="{{ url_for('main.word_bank', search=tag) }}" class="tag">{{ tag }} ({{ count }})</a>
         {% endfor %}
     </div>
 
