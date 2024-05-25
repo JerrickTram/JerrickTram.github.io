@@ -1,6 +1,7 @@
 {% extends 'layout.html' %}
 
 {% block content %}
+<div class="jumbotron">
     <h2>Vocabulary Quiz</h2>
     <p>Translate the following word:</p>
     <form method="GET" action="{{ url_for('main.quiz') }}">
@@ -15,10 +16,10 @@
         </div>
         <button type="submit" class="btn btn-primary">Filter</button>
     </form>
-
+    
     <div class="card mt-4">
         <div class="card-body">
-            <h5 class="card-title">{{ word.english_translation }}</h5>
+            <h3 class="card-title">{{ word.english_translation }}</h3>
             {% if not feedback %}
             <form method="POST" action="{{ url_for('main.quiz', word_id=word.id, tag=request.args.get('tag')) }}">
                 {{ form.hidden_tag() }}
@@ -36,4 +37,5 @@
             {% endif %}
         </div>
     </div>
+</div>
 {% endblock %}

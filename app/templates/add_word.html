@@ -1,6 +1,7 @@
 {% extends 'layout.html' %}
 
 {% block content %}
+<div class="jumbotron">
     <h2>Add New Word</h2>
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
@@ -29,4 +30,5 @@
         </div>
         <button type="submit" class="btn btn-primary">{{ form.submit.label }}</button>
     </form>
+</div>
 {% endblock %}

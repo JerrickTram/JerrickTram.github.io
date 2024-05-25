@@ -1,6 +1,7 @@
 {% extends 'layout.html' %}
 
 {% block content %}
+<div class="jumbotron">
     <h2>Word Bank</h2>
     <form method="GET" action="{{ url_for('main.word_bank') }}">
         <div class="form-group">
@@ -39,4 +40,5 @@
     {% else %}
     <h3 class="mt-4">Select a tag to view words</h3>
     {% endif %}
+</div>
 {% endblock %}

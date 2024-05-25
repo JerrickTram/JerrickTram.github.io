@@ -1,6 +1,7 @@
 {% extends 'layout.html' %}
 
 {% block content %}
+<div class="jumbotron">
     <h2>Metrics</h2>
     
     <h3>Daily Metrics</h3>
@@ -18,4 +19,5 @@
         <li class="list-group-item"><strong>Total Incorrect:</strong> {{ total_incorrect }}</li>
         <li class="list-group-item"><strong>Total Accuracy:</strong> {{ total_accuracy|round(2) }}%</li>
     </ul>
+</div>
 {% endblock %}

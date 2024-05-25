@@ -44,6 +44,10 @@ header {
     color: #FFD700;
 }
 
+#dark-mode-toggle {
+    margin-left: auto;
+}
+
 /* Style for the relative footer */
 footer {
     background-color: #005BAC;
@@ -64,7 +68,7 @@ body {
 }
 
 h1, h2, h3 {
-    color: #005BAC;
+    color: #FFD700;
 }
 
 /* Style for the form and input fields */
@@ -83,4 +87,53 @@ form .form-control:focus {
 
 .navbar-dark .navbar-nav .nav-link:hover {
     color: #e0c200;
+}
+
+/* Dark mode styles */
+body.dark-mode {
+    background-color: #333;
+}
+
+body.dark-mode .container,
+body.dark-mode .navbar,
+body.dark-mode .footer,
+body.dark-mode .header {
+    background-color: #444; /* Dark container background */
+    color: #333; /* Keep the text color dark for readability */
+}
+
+body.dark-mode .form-control {
+    background-color: #444;
+    border-color: #FFD700;
+    color: #ddd;
+}
+
+body.dark-mode .form-control:focus {
+    border-color: #005BAC;
+    box-shadow: 0 0 5px rgba(0, 91, 172, 0.5);
+}
+
+body.dark-mode .navbar-dark .navbar-nav .nav-link {
+    color: #FFD700;
+}
+
+body.dark-mode .navbar-dark .navbar-nav .nav-link:hover {
+    color: #e0c200;
+}
+
+body.dark-mode .btn-primary {
+    background-color: #FFD700;
+    border-color: #FFD700;
+    color: #005BAC;
+}
+
+body.dark-mode .btn-primary:hover, body.dark-mode .btn-primary:focus, body.dark-mode .btn-primary:active {
+    background-color: #005BAC;
+    border-color: #005BAC;
+    color: #FFD700;
+}
+
+body.dark-mode header, body.dark-mode footer {
+    background-color: #005BAC;
+    color: #FFD700;
 }

@@ -8,9 +8,12 @@
 </head>
 <body>
     <header class="bg-primary text-white p-3">
-        <div class="container">
+        <div class="container d-flex justify-content-between align-items-center">
             <h1>Swedish Learning Tracker</h1>
-            <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <button id="dark-mode-toggle" class="btn btn-secondary">Toggle Dark Mode</button>
+        </div>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -24,8 +27,8 @@
                         <li class="nav-item"><a class="nav-link" href="{{ url_for('main.word_bank') }}">Word Bank</a></li>
                     </ul>
                 </div>
-            </nav>
-        </div>
+            </div>
+        </nav>
     </header>
     <main class="container mt-4">
         {% block content %}{% endblock %}
@@ -36,5 +39,6 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="{{ url_for('static', filename='js/dark_mode.js') }}"></script>
 </body>
 </html>
