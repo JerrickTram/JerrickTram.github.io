@@ -52,8 +52,19 @@ def delete_word(word_id):
 @bp.route('/quiz', methods=['GET', 'POST'])
 def quiz():
     form = QuizForm()
+    tag = request.args.get('tag')
     word_id = request.args.get('word_id')
-    word = Word.query.get(word_id) if word_id else Word.query.order_by(db.func.random()).first()
+    
+    if tag:
+        query = Word.query.filter(Word.tags.contains(tag))
+    else:
+        query = Word.query
+
+    if word_id:
+        word = Word.query.get(word_id)
+    else:
+        word = query.order_by(db.func.random()).first()
+        
     feedback = None
 
     if form.validate_on_submit():
@@ -77,9 +88,11 @@ def quiz():
         db.session.commit()
 
     if request.method == 'GET' and request.args.get('next'):
-        word = Word.query.order_by(db.func.random()).first()
+        word = query.order_by(db.func.random()).first()
 
-    return render_template('quiz.html', form=form, word=word, feedback=feedback)
+    available_tags = sorted(set(tag for word in Word.query.all() for tag in (word.tags or "").split(",")))
+
+    return render_template('quiz.html', form=form, word=word, feedback=feedback, available_tags=available_tags)
 
 @bp.route('/stories')
 def stories():
