@@ -10,7 +10,7 @@ bp = Blueprint('main', __name__)
 
 @bp.route('/')
 def home():
-    return render_template('home.html')
+    return render_template('index.html')
 
 @bp.route('/add_word', methods=['GET', 'POST'])
 def add_word():
