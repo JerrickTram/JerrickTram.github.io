@@ -11,15 +11,17 @@
             </div>
         {% endif %}
     {% endwith %}
-    <form method="POST" action="">
+    <form method="POST" action="" id="wordForm">
         {{ form.hidden_tag() }}
         <div class="form-group">
             {{ form.swedish_word.label }}
-            {{ form.swedish_word(class="form-control") }}
+            {{ form.swedish_word(class="form-control", required=True) }}
+            <div class="invalid-feedback">Please enter the Swedish word.</div>
         </div>
         <div class="form-group">
             {{ form.english_translation.label }}
-            {{ form.english_translation(class="form-control") }}
+            {{ form.english_translation(class="form-control", required=True) }}
+            <div class="invalid-feedback">Please enter the English translation.</div>
         </div>
         <div class="form-group">
             {{ form.tags.label }}
