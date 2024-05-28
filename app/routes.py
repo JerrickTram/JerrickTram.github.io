@@ -59,7 +59,7 @@ def quiz():
     form = QuizForm()
     tag = request.args.get('tag')
     word_id = request.args.get('word_id')
-    
+
     if tag:
         query = Word.query.filter(Word.tags.contains(tag))
     else:
@@ -68,8 +68,21 @@ def quiz():
     if word_id:
         word = Word.query.get(word_id)
     else:
-        word = query.order_by(db.func.random()).first()
-        
+        words = query.all()
+        total_attempts = sum(word.correct_count + word.incorrect_count for word in words)
+        weights = []
+
+        for word in words:
+            attempts = word.correct_count + word.incorrect_count
+            if attempts == 0:
+                weight = 1.0  # Assign a default weight if no attempts
+            else:
+                correct_percentage = word.correct_count / attempts
+                weight = 1.0 - correct_percentage  # Lower correct percentage means higher weight
+            weights.append(weight)
+
+        word = random.choices(words, weights=weights, k=1)[0]
+
     feedback = None
 
     if form.validate_on_submit():
@@ -93,11 +106,12 @@ def quiz():
         db.session.commit()
 
     if request.method == 'GET' and request.args.get('next'):
-        word = query.order_by(db.func.random()).first()
+        word = random.choices(words, weights=weights, k=1)[0]
 
     available_tags = sorted(set(tag for word in Word.query.all() for tag in (word.tags or "").split(",")))
 
     return render_template('quiz.html', form=form, word=word, feedback=feedback, available_tags=available_tags)
+
 
 @bp.route('/stories')
 def stories():
