@@ -1,3 +1,7 @@
+.jumbotron {
+    background-color: #FFF8E7;
+}
+
 /* General styles for the tag cloud */
 .tag-cloud {
     display: flex;

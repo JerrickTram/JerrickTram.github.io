@@ -4,19 +4,6 @@
 <div class="jumbotron">
     <h2>Vocabulary Quiz</h2>
     <p>Translate the following word:</p>
-    <form method="GET" action="{{ url_for('main.quiz') }}">
-        <div class="form-group">
-            <label for="tag">Filter by Tag:</label>
-            <select id="tag" name="tag" class="form-control">
-                <option value="">All</option>
-                {% for tag in available_tags %}
-                    <option value="{{ tag }}" {% if request.args.get('tag') == tag %}selected{% endif %}>{{ tag }}</option>
-                {% endfor %}
-            </select>
-        </div>
-        <button type="submit" class="btn btn-primary">Filter</button>
-    </form>
-    
     <div class="card mt-4">
         <div class="card-body">
             <h3 class="card-title">{{ word.english_translation }}</h3>
@@ -37,5 +24,18 @@
             {% endif %}
         </div>
     </div>
+    <br>
+    <form method="GET" action="{{ url_for('main.quiz') }}">
+        <div class="form-group">
+            <label for="tag">Filter by Tag:</label>
+            <select id="tag" name="tag" class="form-control">
+                <option value="">All</option>
+                {% for tag in available_tags %}
+                    <option value="{{ tag }}" {% if request.args.get('tag') == tag %}selected{% endif %}>{{ tag }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Filter</button>
+    </form>
 </div>
 {% endblock %}
